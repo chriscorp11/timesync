@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSync</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            font-family: 'Digital', sans-serif;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 50px;
+        }
+        h2 {
+            color: #fff;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 40px;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+        }
+        .clock-box {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+            margin-bottom: 20px;
+            text-align: center;
+            --angle: 45deg;
+            background: linear-gradient(var(--angle), rgb(25,25,25), rgb(50,50,50));
+        }
+
+        .clock-box:hover {
+            box-shadow: 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff;
+        }
+
+        .clock-box::after {
+            content: "";
+            position: absolute;
+            inset: -0.25rem;
+            background: linear-gradient(var(--angle), black, white);
+            z-index: -1;
+            border-radius: inherit;
+        }
+
+        .clock-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .clock {
+            font-size: 40px;
+            font-family: 'Digital', sans-serif;
+            text-shadow: 0 0 10px, 0 0 20px, 0 0 30px, 0 0 40px, 0 0 50px, 0 0 60px, 0 0 70px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .clock:hover {
+            box-shadow: 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff;
+        }
+
+        footer {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 40px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TimeSync</h1>
+        <h2>Timezones of your favorite cities</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxLA">
+                    <div class="clock-title">Los Angeles</div>
+                    <div class="clock" id="clockLA" style="color: #f00">00:00:00</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxTokyo">
+                    <div class="clock-title">Tokyo</div>
+                    <div class="clock" id="clockTokyo" style="color: #ffa500">00:00:00</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxNY">
+                    <div class="clock-title">New York</div>
+                    <div class="clock" id="clockNY" style="color: #ff0">00:00:00</div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxLondon">
+                    <div class="clock-title">London</div>
+                    <div class="clock" id="clockLondon" style="color: #0f0">00:00:00</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxParis">
+                    <div class="clock-title">Paris</div>
+                    <div class="clock" id="clockParis" style="color: #00f">00:00:00</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="clock-box" id="clockBoxBeijing">
+                    <div class="clock-title">Beijing</div>
+                    <div class="clock" id="clockBeijing" style="color: #4b0082">00:00:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; Chris Corp 2024 All rights reserved
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+
+            const timezones = {
+                clockLA: now.toLocaleTimeString('en-US', { timeZone: 'America/Los_Angeles' }),
+                clockTokyo: now.toLocaleTimeString('en-US', { timeZone: 'Asia/Tokyo' }),
+                clockNY: now.toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
+                clockLondon: now.toLocaleTimeString('en-US', { timeZone: 'Europe/London' }),
+                clockParis: now.toLocaleTimeString('en-US', { timeZone: 'Europe/Paris' }),
+                clockBeijing: now.toLocaleTimeString('en-US', { timeZone: 'Asia/Shanghai' }),
+            };
+
+            for (const [id, time] of Object.entries(timezones)) {
+                document.getElementById(id).textContent = time;
+            }
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        const clockBoxes = document.querySelectorAll('.clock-box');
+
+        function calculateAngle(x1, y1, x2, y2) {
+            const dy = y2 - y1;
+            const dx = x2 - x1;
+            const rad = Math.atan2(dy, dx); // Radians
+            const deg = rad * (180 / Math.PI); // Degrees
+            return deg;
+        }
+
+        window.addEventListener("mousemove", (e) => {
+            clockBoxes.forEach(clockBox => {
+                const rect = clockBox.getBoundingClientRect();
+                const angle = calculateAngle(rect.x, rect.y, e.clientX, e.clientY);
+                clockBox.style.setProperty("--angle", angle + "deg");
+            });
+        });
+    </script>
+</body>
+</html>
